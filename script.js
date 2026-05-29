@@ -1,6 +1,8 @@
 const container = document.getElementById("container");
+const clearButton = document.getElementById("clear-btn");
+const resizeButton = document.getElementById("resize-btn");
 
-let gridSize = 50;
+let gridSize = 16;
 
 function createGrid(gridSize) {
     for (let i = 0; i < gridSize; i++) {
@@ -37,4 +39,14 @@ gridSquares.forEach((square) => {
     square.addEventListener("mouseover", () => {
         square.style.backgroundColor = "black";
     });
+});
+
+clearButton.addEventListener("click", () => {
+    for (let i = 0; i < gridSize; i++){
+        const targetRow = container.children[i];
+        for (let j = 0; j < gridSize; j++) {
+            const targetSquare = targetRow.children[j];
+            targetSquare.style.backgroundColor = "white";
+        }
+    }
 });
