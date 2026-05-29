@@ -20,6 +20,14 @@ function createGrid(gridSize) {
         }
         container.appendChild(gridRow);
     }
+
+    const gridSquares = document.querySelectorAll(".grid-Square");
+
+    gridSquares.forEach((square) => {
+        square.addEventListener("mouseover", () => {
+            square.style.backgroundColor = "black";
+        });
+    });
 }
 
 function getSquareSize(gridSize) {
@@ -31,22 +39,25 @@ function getSquareSize(gridSize) {
     return squareSize;
 }
 
+function clearGrid() {
+    while (container.firstChild) {
+        container.removeChild(container.firstChild);
+    }
+}
+
 createGrid(gridSize);
 
-const gridSquares = document.querySelectorAll(".grid-Square");
-
-gridSquares.forEach((square) => {
-    square.addEventListener("mouseover", () => {
-        square.style.backgroundColor = "black";
-    });
-});
 
 clearButton.addEventListener("click", () => {
-    for (let i = 0; i < gridSize; i++){
-        const targetRow = container.children[i];
-        for (let j = 0; j < gridSize; j++) {
-            const targetSquare = targetRow.children[j];
-            targetSquare.style.backgroundColor = "white";
-        }
+    clearGrid();
+    createGrid(gridSize);
+});
+
+resizeButton.addEventListener("click", () => {
+    gridSize = prompt("Enter new grid size (1-100):");
+    while (gridSize < 1 || gridSize > 100) {
+        gridSize = prompt("Invalid grid size. Please enter a number between 1 and 100.");
     }
+    clearGrid();
+    createGrid(gridSize);
 });
